@@ -7,6 +7,7 @@
         <th scope="col">#</th>
         <th scope="col">Tên lớp</th>
         <th scope="col">Sĩ số</th>
+        <th scope="col">Học sinh top 1</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
         <th scope="row">{{i + 1}}</th>
         <td>{{ class.name }}</td>
         <td>{{ class.students.length }}</td>
+        <td>{{ filterStudentTopOne(class.students) }}</td>
       </tr>
     </tbody>
   </table>
@@ -29,6 +31,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">{{infoClass?.name}}</h5>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">Thêm học
+          sinh</button>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -42,6 +47,7 @@
               <th scope="col">Tên</th>
               <th scope="col">Giới Tính</th>
               <th scope="col">Ngày sinh</th>
+              <th scope="col">Điểm TB</th>
               <th scope="col">Hành động</th>
             </tr>
           </thead>
@@ -50,9 +56,11 @@
               <th scope="row">{{i + 1}}</th>
               <td>{{ student.name }} (ID: {{student.id}})</td>
               <td>{{ student.gender }}</td>
-              <td>{{ student.birth_day }}</td>
-              <td><a style="cursor: pointer;" data-toggle="modal" data-target="#editModal" (click)="editStudent(student)">Sửa</a> | <a
-                  style="color: red; cursor: pointer;" (click)="deleteStudent(infoClass, student.id)">Xóa</a></td>
+              <td>{{ student.date_of_birth }}</td>
+              <td>{{ student.average_score == null? 0: student.average_score }}</td>
+              <td><a style="cursor: pointer;" data-toggle="modal" data-target="#editModal"
+                  (click)="editStudent(student)">Sửa</a> | <a style="color: red; cursor: pointer;"
+                  (click)="deleteStudent(infoClass, student.id)">Xóa</a></td>
             </tr>
           </tbody>
         </table>
@@ -60,6 +68,50 @@
     </div>
   </div>
 </div>
+
+<!-- Modal create-->
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin học sinh</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Tên:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="studentName"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Ngày sinh:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="date_of_birth"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">giới tính:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="gender"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Điểm trung bình:</label>
+            <input type="number" class="form-control" id="recipient-name" [(ngModel)]="average_score"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="createStudent()">Thêm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <!-- Modal edit -->
@@ -77,15 +129,23 @@
         <form>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Tên:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="studentName"  [ngModelOptions]="{standalone: true}">
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="studentName"
+              [ngModelOptions]="{standalone: true}">
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Ngày sinh:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="birth_day"  [ngModelOptions]="{standalone: true}">
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="date_of_birth"
+              [ngModelOptions]="{standalone: true}">
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">giới tính:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="gender"  [ngModelOptions]="{standalone: true}">
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="gender"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Điểm trung bình:</label>
+            <input type="number" class="form-control" id="recipient-name" [(ngModel)]="average_score"
+              [ngModelOptions]="{standalone: true}">
           </div>
         </form>
       </div>
