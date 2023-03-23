@@ -3,8 +3,9 @@ import {FacebookInitData} from "./facebook-init-data";
 export class Student {
     private _id: number;
     private _name: string;
-    private _birthday: string;
+    private _day_of_birth: string;
     private _gender: string;
+    private _average_score: number;
 
     get id(): number {
         return this._id;
@@ -22,12 +23,12 @@ export class Student {
         this._name = value;
     }
 
-    get birthday(): string {
-        return this._birthday;
+    get day_of_birth(): string {
+        return this._day_of_birth;
     }
 
-    set birthday(value: string) {
-        this._birthday = value;
+    set day_of_birth(value: string) {
+        this._day_of_birth = value;
     }
 
     get gender(): string {
@@ -36,6 +37,14 @@ export class Student {
 
     set gender(value: string) {
         this._gender = value;
+    }    
+
+    get average_score(): number {
+        return this._average_score;
+    }
+
+    set average_score(value: number) {
+        this._average_score = value;
     }    
 
 }
